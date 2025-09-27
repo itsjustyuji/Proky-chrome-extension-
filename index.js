@@ -1,15 +1,34 @@
-import { InferenceClient } from '@huggingface/inference';
-import 'dotenv/config';
+import express from "express";
+import { InferenceClient } from "@huggingface/inference";
+import dotenv from "dotenv";
 
-const key=process.env.HF_APIKEY;
+dotenv.config();
 
-const hf = new InferenceClient(key);
+const app = express();
+const port = 3000;
 
-const res=await hf.questionAnswering({
-  model: 'distilbert/distilbert-base-cased-distilled-squad',
-  inputs: {
-    question: 'Where is India?',
-    context: 'The capital of India is Delhi.'
+app.use(express.json());
+app.use(express.static(".")); // serve index.html
+
+const hf = new InferenceClient(process.env.HF_APIKEY);
+
+// Route to handle Q&A
+app.post("/ask", async (req, res) => {
+  try {
+    const { question, context } = req.body;
+
+    const result = await hf.questionAnswering({
+      model: "distilbert/distilbert-base-cased-distilled-squad",
+      inputs: { question, context }
+    });
+
+    res.json({ answer: result.answer });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Something went wrong" });
   }
-})
-console.log(res.answer);
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
