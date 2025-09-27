@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q&A with HuggingFace</title>
+</head>
+<body>
+  <form id="askForm">
+    <textarea id="context" rows="10" cols="80" placeholder="Type unseen paragraph here..."></textarea><br>
+    <textarea id="question" rows="2" cols="80" placeholder="Type related question here..."></textarea><br><br>
+    <button type="submit">Ask</button>
+  </form>
+  
+  <h2>Answer:</h2>
+  <div id="answer"></div>
+
+  <script>
+    document.getElementById("askForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const context = document.getElementById("context").value;
+      const question = document.getElementById("question").value;
+
+      const res = await fetch("/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ context, question })
+      });
+
+      const data = await res.json();
+      document.getElementById("answer").innerText = data.answer || "No answer found";
+    });
+  </script>
+</body>
+</html>
