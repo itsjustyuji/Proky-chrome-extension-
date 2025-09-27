@@ -1,0 +1,80 @@
+/* Base styles */
+html, body {
+  width: 350px;         /* fixed width for popup */
+  height: auto;
+  max-height: 600px;    /* prevent it from stretching too tall */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #f9fafb;
+  overflow-y: auto;     /* allow scroll if needed */
+}
+
+.container {
+  width: 100%;
+  max-width: 350px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+/* Heading smaller for popup */
+h1 {
+  text-align: center;
+  margin-bottom: 12px;
+  font-size: 18px;
+  color: #333;
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  font-size: 14px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+button {
+  display: inline-block;
+  width: 100%;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background: #2563eb;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+h2 {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #444;
+}
+
+#answer {
+  background: #f3f4f6;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 5px;
+  font-size: 14px;
+  line-height: 1.4;
+  min-height: 30px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+#answer.filled {
+  background: #e0f7e9;
+  color: #064e3b;
+}

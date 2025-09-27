@@ -1,6 +1,7 @@
 import express from "express";
 import { InferenceClient } from "@huggingface/inference";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
@@ -8,6 +9,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(cors());
 app.use(express.static(".")); // serve index.html
 
 const hf = new InferenceClient(process.env.HF_APIKEY);
